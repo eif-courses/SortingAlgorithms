@@ -29,7 +29,7 @@ void bubbleSort(int array[], int n) {
 
 void displayBubbleSort() {
   int array[] = {66, 45, 20, 10, 9, 8};
-  cout << "Unsorted array: ";
+  cout << "Bubble sort: Unsorted array: ";
   for (int &i: array) {
     cout << i << " ";
   }
@@ -57,7 +57,7 @@ void merge(int array[], int l, int m, int r) {
   // copy data to subarrays
 
   for (i = 0; i < n1; i++) {
-    LSubArray[i] = array[l + 1];
+    LSubArray[i] = array[l + i];
   }
   for (j = 0; j < n2; j++) {
     RSubArray[j] = array[m + 1 + j];
@@ -77,6 +77,7 @@ void merge(int array[], int l, int m, int r) {
       array[k] = RSubArray[j];
       j++;
     }
+    k++;
   }
 
 
@@ -110,6 +111,20 @@ void mergeSort(int array[], int l, int r) {
 void displayMergeSort() {
 
   /// TODO appending output
+  int array[] = {582, 115, 120, 4, 40, 62, 25, 69};
+
+  cout << "Merge sort: Unsorted array: ";
+  for (int i: array) {
+    cout << i << " ";
+  }
+  int size = sizeof(array) / sizeof(array[0]);
+
+  mergeSort(array, 0, size - 1);
+
+  cout << "Sorted array: ";
+  for (int i: array) {
+    cout << i << " ";
+  }
 
 }
 
@@ -140,41 +155,47 @@ void countingSort(int array[], int size, int place) {
 
   // place elements in sorted order
 
-  for(int i = size-1; i >= 0; i--){
-    output[count[(array[i]/place) % 10]-1] = array[i];
-    count[(array[i]/place) % 10]--;
+  for (int i = size - 1; i >= 0; i--) {
+    output[count[(array[i] / place) % 10] - 1] = array[i];
+    count[(array[i] / place) % 10]--;
   }
-  for(int i=0; i < size; i++)
+  for (int i = 0; i < size; i++)
     array[i] = output[i];
 }
-void radixSort(int array[], int size){
+
+void radixSort(int array[], int size) {
   int max = getMax(array, size);
-  for(int place=1; max / place > 0; place *= 10){
+  for (int place = 1; max / place > 0; place *= 10) {
     countingSort(array, size, place);
   }
 }
 
+void displayRadixSort() {
+  /// TODO appending output
+  int array[] = {25, 1, 6, 11, 2, 58, 99, 35};
+
+  cout << "Radix sort: Unsorted array: ";
+  for (int i: array) {
+    cout << i << " ";
+  }
+  int size = sizeof(array) / sizeof(array[0]);
+
+  radixSort(array, size);
+
+  cout << "Sorted array: ";
+  for (int i: array) {
+    cout << i << " ";
+  }
+}
 
 
 int main() {
 
-  int array[] = {582, 115, 120, 4, 40, 62, 25, 69};
-
-  cout << "Unsorted array: ";
-  for (int &i: array) {
-    cout << i << " ";
-  }
-
-  radixSort(array, sizeof(array)/sizeof(array[0]));
-
-  cout << "Sorted array: ";
-  for (int &i: array) {
-    cout << i << " ";
-  }
-
-
-
-
+  displayMergeSort();
+  cout << endl;
+  displayBubbleSort();
+  cout << endl;
+  displayRadixSort();
   return 0;
 }
 
